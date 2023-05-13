@@ -2,3 +2,6 @@ Backend/pyvenv.cfg
 Backend/include/
 Backend/Scripts/
 Backend/Lib/
+Backend/Video/*.MOV
+Backend/Video/*.mp4
+*.jpg
