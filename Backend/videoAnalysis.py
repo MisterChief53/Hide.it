@@ -37,6 +37,14 @@ for i in range(frame_count):
 
     #processing!
 
+    (height, width) = frame.shape[:2] ##just to make sure
+
+    objects = []
+
+    blob = cv2.dnn.blobFromImage(frame, 1/255.0, (416, 416), swapRB=True, crop=False)
+
+    net.setInput(blob)
+
     video_out.write(frame)
 
 video_out.release()
