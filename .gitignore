@@ -5,3 +5,4 @@ Backend/Lib/
 Backend/Video/*.MOV
 Backend/Video/*.mp4
 *.jpg
+*.weights
