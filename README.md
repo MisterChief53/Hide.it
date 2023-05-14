@@ -1,4 +1,5 @@
 # Hide.it
+![Logo](https://i.imgur.com/WQwHIEi.png)
 
 Hide.it is an automatic video censorship system that analyzes your video looking for known objects, asks you which one you want to censor, and then gives you back
 a censored version of your own video.
