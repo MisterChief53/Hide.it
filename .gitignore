@@ -6,3 +6,4 @@ Backend/Video/*.MOV
 Backend/Video/*.mp4
 *.jpg
 *.weights
+*.mp4
