@@ -14,7 +14,7 @@ class item {
         document.getElementById("itOne").style.border = "none";
     }
 }
-
+/*
 function verificarArchivo() {
     var archivoInput = document.getElementById('archivo');
     var archivoSeleccionado = archivoInput.files[0];
@@ -26,7 +26,7 @@ function verificarArchivo() {
         document.getElementById("newVideo").style.display = "flex";
     }
 }
-
+*/
 function clicItem(id) {
     var itemX;
     itemX = new item(id, selected);

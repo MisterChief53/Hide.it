@@ -14,6 +14,8 @@ classSelected = False
 
 def index():
     videoNotUploaded = os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], 'video.mp4'))
+    if videoNotUploaded:
+        process_video()
     classSelected = True
     return render_template('upload.html', videoNotUploaded=not videoNotUploaded, classSelected=classSelected)
 
@@ -116,7 +118,7 @@ def process_video():
                 if obj[0] not in detected_classes:
                     detected_classes.add(obj[0])
 
-
+    
     print(detected_classes)
 
     selected_label = 'pottedplant'
