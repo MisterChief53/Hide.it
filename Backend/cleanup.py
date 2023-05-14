@@ -3,6 +3,7 @@ import os
 
 os.remove('Video/video.mp4')
 os.remove('Video/Output/video.mp4')
+os.remove('Video/Output/final_video.mp4')
 
 frames_path = 'Frames'
 

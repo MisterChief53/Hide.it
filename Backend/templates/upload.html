@@ -84,7 +84,7 @@
 
 
         {% if classSelected %}
-            <section id="newVideo">
+            <section id="newVideo" style="display: flex">
                 <h2>This is your new video</h2>
                 <video src="{{ url_for('serve_final_video', filename='final_video.mp4') }}" controls>
                     Tu navegador no admite la etiqueta de video.

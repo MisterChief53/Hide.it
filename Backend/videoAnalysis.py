@@ -32,6 +32,8 @@ def index():
         print(f"selected label: {selected_label}")
         process_videoPt2(selected_label)
         classSelected = True
+        detected_classes = []
+        detected_classes.append(selected_label)
         return render_template('upload.html', videoNotUploaded=not videoNotUploaded, detected_classes=detected_classes, classSelected=classSelected)
     return render_template('upload.html', videoNotUploaded=not videoNotUploaded, detected_classes=detected_classes, classSelected=classSelected)
 
