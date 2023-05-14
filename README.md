@@ -13,10 +13,16 @@ a censored version of your own video.
 - COCO dataset
 
 # How to use it:
+1. Upload a video
+2. Wait for the analysis to finish
+3. Select the object you want to censor
+4. Wait for the censorship to finish
+5. Download the censored video
+
 
 # Installation and setup
 1. Clone the repository
 2. Install the requirements. Recommended to use a virtual environment and install the requirements.txt file
 3. Download the YOLOv3 weights from [here](https://pjreddie.com/media/files/yolov3.weights) and place them in the Backend folder of the project
-4. Run the server with `python manage.py runserver`
-5. Go to the url and use the app
+4. Run the server with `flask --app videoAnalysis.py run`
+5. Go to the url provided by flask and use the app
