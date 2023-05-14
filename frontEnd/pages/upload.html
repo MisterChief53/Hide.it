@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- *BOOTSTRAP CSS INTERNO -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style_upload.css">
+    <link rel="icon" href="../imgs/logo.png">
+
+    <title>hide.it.</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html"><img class="logo" src="../imgs/logo.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav  menu_header">
+                        <a class="list_item_header" aria-current="page" href="."></a>
+                        <!-- <a class="list_item_header mainBtn" href=".">Try Hide it </a> -->
+                        <a class="list_item_header main_boton" aria-current="page" href="">Try hide.it.</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="upload">
+            <!-- <div> -->
+            <img src="../imgs/logo2.png" alt="">
+            <!-- <input type="file" accept="video/*" class="uploadBtn">Upload video -->
+            <label for="archivo" class="uploadBtn">
+                <span>Upload video</span>
+                <input type="file" id="archivo" style="display: none;" accept="video/mp4" onclick="verificarArchivo()">
+              </label>
+
+            <label for="archivo" class="uploadBtn upBtn2">
+                <span>Change video</span>
+                <input type="file" id="archivo2" style="display: none;" accept="video/mp4">
+              </label>
+            <!-- </div> -->
+
+            <video src="ruta/al/video.mp4" controls id="videUploaded">
+                Tu navegador no admite la etiqueta de video.
+              </video>
+        </section>
+
+        <section id="selectHide">
+            <h2>Select what you want to hide</h2>
+            <div id="options">
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+
+            </div>
+
+            <a href="#newVideo" class="main_boton">Hide it</a>
+        </section>
+
+        <section id="newVideo">
+            <h2>This is your new video</h2>
+            <video src="ruta/al/video.mp4" controls>
+                Tu navegador no admite la etiqueta de video.
+              </video>
+            <a href="ruta/al/video.mp4" download class="uploadBtn">Descargar video</a>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <a href=".">
+            <img src="../imgs/logo.png" alt="">
+        </a>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <!-- *BOOTSTRAP JS INTERNO -->
+    <script src="../js/bootstrap.min.js"></script>
+</body>
+
+</html>
