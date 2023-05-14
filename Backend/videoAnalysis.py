@@ -33,6 +33,10 @@ with open('coco.names', 'r') as f:
 
 video_out = cv2.VideoWriter(f'Video/Output/video.mp4', fourcc, fps, (width_frame, height_frame))
 
+detected_classes = set()
+
+objects_overall = []
+
 for i in range(frame_count):
     frame = cv2.imread(f'Frames/frame{i}.jpg')
 
@@ -62,20 +66,44 @@ for i in range(frame_count):
                 y = int(centerY - (height/2))
                 objects.append((classes[class_id], confidence, (x,y, int(width), int(height))))
 
+    objects_overall.append(objects)
+
     for obj in objects:
-        label = f'{obj[0]}: {obj[1]:.2f}'
+        if obj[1] > 0.5:
+            if obj[0] not in detected_classes:
+                detected_classes.add(obj[0])
+
+
+print(detected_classes)
+
+selected_label = 'pottedplant'
+for i in range(frame_count):
+    frame = cv2.imread(f'Frames/frame{i}.jpg')
+
+    #processing!
+
+    for obj in objects_overall[i]:
+        #label = f'{obj[0]}: {obj[1]:.2f}'
+
         (x,y,w,h) = obj[2]
         #cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 2)
         #cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), -1)
-        if x >= 0 and y >= 0 and x+w <= width_frame and y+h <= height_frame:
-            roi = frame[y:y+h, x:x+w]
-            print(f"roi shape: {roi.shape}")
-            print(f"roi empty: {roi.size == 0}")
-            blurred_roi = cv2.GaussianBlur(roi, (251,251), 0)
-            frame[y:y+h, x:x+w] = blurred_roi
+        
+        if obj[0] == selected_label:
+            if x >= 0 and y >= 0 and x+w <= width_frame and y+h <= height_frame:
+                roi = frame[y:y+h, x:x+w]
+                print(f"roi shape: {roi.shape}")
+                print(f"roi empty: {roi.size == 0}")
+                blurred_roi = cv2.GaussianBlur(roi, (251,251), 0)
+                frame[y:y+h, x:x+w] = blurred_roi
+        
+        
 
-        cv2.putText(frame,label,(x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0),2)
+        #cv2.putText(frame,label,(x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0),2)
 
     video_out.write(frame)
+
+print(detected_classes)
+
 
 video_out.release()
