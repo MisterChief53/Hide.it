@@ -13,31 +13,20 @@ def upload_video(request):
         return render(request, 'video_uploaded.html')
     return render(request, 'upload_video.html')
 
-
-def check_for_specific_file(directory_path, file_name):
-    """
-    Check if a specific file is in a directory.
-    Returns True if the file exists, False otherwise.
-    """
-    file_path = os.path.join(directory_path, file_name)
-    return os.path.exists(file_path)
-
-def notify_api():
-    """
-    Notify the Django API that the specific file has been found.
-    """
-    url = 'http://localhost:8000/polls/media/'
-    response = requests.post(url)
-    return response.status_code
-
-def main():
-    directory_path = 'http://localhost:8000/polls/media/'
+def lookForVideo(request):
+    directory_path = 'media/'
     file_name = 'try.txt'
+    
     file_found = False
     
     while not file_found:
-        if check_for_specific_file(directory_path, file_name):
-            notify_api()
-            file_found = True
+        file_path = './media/video.txt'
+        if not os.path.exists(file_path):
+            return HttpResponse("There is not a video")
+            # Perform an action, such as sleeping for a few seconds
+            time.sleep(10)
         else:
-            time.sleep(10) # sleep for 60 seconds before checking again
+            file_found = True
+
+
+    return HttpResponse("There is a video")
