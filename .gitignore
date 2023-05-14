@@ -7,3 +7,5 @@ Backend/Video/*.mp4
 *.jpg
 *.weights
 *.mp4
+*.MOV
+Backend/__pycache__/

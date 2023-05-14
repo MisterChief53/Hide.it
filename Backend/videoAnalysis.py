@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from cleanup import clean
 
 video = cv2.VideoCapture('Video/video.mp4')
 
@@ -98,12 +99,11 @@ for i in range(frame_count):
                 frame[y:y+h, x:x+w] = blurred_roi
         
         
-
         #cv2.putText(frame,label,(x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0),2)
 
     video_out.write(frame)
 
-print(detected_classes)
+
 
 
 video_out.release()

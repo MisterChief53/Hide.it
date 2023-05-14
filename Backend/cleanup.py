@@ -1,5 +1,6 @@
 import os
 
+
 os.remove('Video/video.mp4')
 os.remove('Video/Output/video.mp4')
 
