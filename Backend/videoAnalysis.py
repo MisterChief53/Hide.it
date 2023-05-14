@@ -10,14 +10,30 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'Video'
 videoNotUploaded = True
 classSelected = False
+frame_count = 0
+objects_overall = []
+flag = False
+#width_frame = 0
+#height_frame = 0
+#fps = 0
 @app.route('/', methods=['GET', 'POST'])
 
 def index():
+    global flag
     videoNotUploaded = os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], 'video.mp4'))
-    if videoNotUploaded:
-        process_video()
-    classSelected = True
-    return render_template('upload.html', videoNotUploaded=not videoNotUploaded, classSelected=classSelected)
+    if videoNotUploaded and flag == False:
+        detected_classes = process_video()
+        #process_videoPt2('person')
+        classSelected = True
+        #videoNotUploaded = False
+        flag = True
+    if request.method == 'POST' and request.form.get('form_name') == 'classesForm':
+        selected_label = request.form.get('item')
+        print(f"selected label: {selected_label}")
+        process_videoPt2(selected_label)
+        classSelected = True
+        return render_template('upload.html', videoNotUploaded=not videoNotUploaded, detected_classes=detected_classes, classSelected=classSelected)
+    return render_template('upload.html', videoNotUploaded=not videoNotUploaded, detected_classes=detected_classes, classSelected=classSelected)
 
 @app.route('/landing', methods=['GET', 'POST'])
     
@@ -46,12 +62,14 @@ def serve_final_video(filename):
 
 
 def process_video():
+    global frame_count
+    global objects_overall
     video = cv2.VideoCapture('Video/video.mp4')
 
-    width_frame = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height_frame = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    #width_frame = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+    #height_frame = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    fps = int(video.get(cv2.CAP_PROP_FPS))
+    #fps = int(video.get(cv2.CAP_PROP_FPS))
 
     frame_count = 0
 
@@ -76,7 +94,6 @@ def process_video():
     with open('coco.names', 'r') as f:
         classes = [line.strip() for line in f.readlines()]
 
-    video_out = cv2.VideoWriter(f'Video/Output/video.mp4', fourcc, fps, (width_frame, height_frame))
 
     detected_classes = set()
 
@@ -117,11 +134,20 @@ def process_video():
             if obj[1] > 0.5:
                 if obj[0] not in detected_classes:
                     detected_classes.add(obj[0])
+    return detected_classes
 
-    
-    print(detected_classes)
+def process_videoPt2(selected_label):
+    global frame_count
+    print(f'frame_count: {frame_count}')
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    video = cv2.VideoCapture('Video/video.mp4')
+    width_frame = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height_frame = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    selected_label = 'pottedplant'
+    fps = int(video.get(cv2.CAP_PROP_FPS))
+    video.release()
+
+    video_out = cv2.VideoWriter(f'Video/Output/video.mp4', fourcc, fps, (width_frame, height_frame))
     for i in range(frame_count):
         frame = cv2.imread(f'Frames/frame{i}.jpg')
 

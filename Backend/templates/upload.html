@@ -64,26 +64,20 @@
 
 
 
-        {% if classSelected %}
-            <section id="selectHide" style="display: flex;">
-                <h2>Select what you want to hide</h2>
-                <div id="options">
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
-                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+        {% if detected_classes %}
+            <form action="/" method="POST">
+                <input type="hidden" name="form_name" value="classesForm">
+                <section id="selectHide" style="display: flex;">
+                    <h2>Select what you want to hide</h2>
+                    <div id="options">
+                        {% for item in detected_classes %}
+                            <button name="item" class="itemBtn" type="submit" id="itOne" value="{{ item }}">{{ item }}</button>
+                        {% endfor %}
+                    </div>
 
-                </div>
-
-                <a href="#newVideo" class="main_boton">Hide it</a>
-            </section>
+                    <a href="#newVideo" class="main_boton">Hide it</a>
+                </section>
+            </form>
         {% endif %}
         
 
