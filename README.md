@@ -7,7 +7,7 @@ a censored version of your own video.
 - OpenCV
 - YOLOv3
 - Python
-- DJango
+- Flask
 - Bootstrap
 - Javascript
 - COCO dataset

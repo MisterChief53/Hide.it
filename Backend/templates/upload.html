@@ -45,7 +45,7 @@
                     <!-- <input type="file" accept="video/*" class="uploadBtn">Upload video -->
                     <label for="archivo" class="uploadBtn">
                         <input type="file" name="file" id="archivo" style="display: none;" accept="video/mp4" onclick="verificarArchivo()">
-                        <input type="submit" value="Upload" class="uploadBtn" id="uploadBtn" >
+                        <input type="submit" value="Upload" class="uploadBtn" id="uploadBtn" style="width: 150px;">
                     </label>
 
                     <label for="archivo" class="uploadBtn upBtn2">
@@ -53,6 +53,7 @@
                         <input type="file" id="archivo2" style="display: none;" accept="video/mp4">
                     </label>
         {% else %}
+                <section id="upload">
                     <video width="320" height="240" src="{{ url_for('serve_video', filename='video.mp4') }}" controls id="videUploaded">
                         Tu navegador no admite la etiqueta de video.
                     </video>    
@@ -75,7 +76,7 @@
                         {% endfor %}
                     </div>
 
-                    <a href="#newVideo" class="main_boton">Hide it</a>
+                    <!--<a href="#newVideo" class="main_boton">Hide it</a>-->
                 </section>
             </form>
         {% endif %}
@@ -86,10 +87,16 @@
         {% if classSelected %}
             <section id="newVideo" style="display: flex">
                 <h2>This is your new video</h2>
-                <video src="{{ url_for('serve_final_video', filename='final_video.mp4') }}" controls>
+                <video src="{{ url_for('serve_final_video', filename='final_video.mp4') }}" id="videoFinal" controls>
                     Tu navegador no admite la etiqueta de video.
                 </video>
                 <a href="{{ url_for('serve_final_video', filename='final_video.mp4') }}" download class="uploadBtn">Descargar video</a>
+                <form action="/" method="POST">
+
+                    <input type="hidden" name="form_name" value="deleteForm">
+                    <!--<input type="submit" value="Try Another Video" name="delete" class="uploadBtn" id="uploadBtn">-->
+                    <!--<button name="delete" class="uploadBtn" id="uploadBtn" onclick="deleteVideo()">Try Another Video</button>-->
+                </form>
 
             </section>
         {% endif %}

@@ -33,3 +33,38 @@ function clicItem(id) {
 
     // no supe cómo hacerlo con los items dinámicos
 }
+
+
+function deleteVideo() {
+    var video = document.getElementById('videUploaded');
+    var videoSrc = video.getElementsByTagName('source')[0].src;
+    var videoFilename = videoSrc.split('/').pop();
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/delete_video');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log('Video deleted successfully');
+        } else {
+            console.log('Error deleting video');
+        }
+    };
+    xhr.send(JSON.stringify({'filename': videoFilename}));
+
+
+
+    var video = document.getElementById('videoFinal');
+    var videoSrc = video.getElementsByTagName('source')[0].src;
+    var videoFilename = videoSrc.split('/').pop();
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/delete_video');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            console.log('Video deleted successfully');
+        } else {
+            console.log('Error deleting video');
+        }
+    };
+    xhr.send(JSON.stringify({'filename': videoFilename}));
+}

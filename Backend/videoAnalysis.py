@@ -1,9 +1,10 @@
 import cv2
 import numpy as np
 import moviepy.editor as mp
-from flask import Flask, render_template, url_for, request, redirect, send_file, send_from_directory
+from flask import Flask, render_template, url_for, request, redirect, send_file, send_from_directory, jsonify
 import requests
 import os
+import time
 
 app = Flask(__name__)
 
@@ -13,13 +14,19 @@ classSelected = False
 frame_count = 0
 objects_overall = []
 flag = False
+detected_classes = []
+needDelete = False
 #width_frame = 0
 #height_frame = 0
 #fps = 0
+noVideo = False
 @app.route('/', methods=['GET', 'POST'])
 
 def index():
     global flag
+    global detected_classes
+    global classSelected
+    global needDelete
     videoNotUploaded = os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], 'video.mp4'))
     if videoNotUploaded and flag == False:
         detected_classes = process_video()
@@ -35,11 +42,31 @@ def index():
         detected_classes = []
         detected_classes.append(selected_label)
         return render_template('upload.html', videoNotUploaded=not videoNotUploaded, detected_classes=detected_classes, classSelected=classSelected)
+    
     return render_template('upload.html', videoNotUploaded=not videoNotUploaded, detected_classes=detected_classes, classSelected=classSelected)
 
 @app.route('/landing', methods=['GET', 'POST'])
     
 def landing():
+    global flag
+    global detected_classes
+    global classSelected
+    global needDelete
+    if needDelete:
+        os.remove('Video/video.mp4')
+        os.remove('Video/Output/video.mp4')
+        os.remove('Video/Output/final_video.mp4')
+
+        frames_path = 'Frames'
+
+        for filename in os.listdir(frames_path):
+            file_path = os.path.join(frames_path, filename)
+
+            if os.path.isfile(file_path) and filename != '.gitkeep':
+                os.remove(file_path)
+        classSelected = False
+        flag = False
+        needDelete = False
     #return render_template('Any.html', result=result, imagePath=imagePath)
     return render_template('index.html')
 
@@ -62,6 +89,32 @@ def serve_final_video(filename):
     directory = 'Video/Output'
     return send_from_directory(directory, filename)
 
+@app.route('/delete_video', methods=['POST'])
+def delete_video():
+    print("delete_video called")
+    filename = request.json['filename']
+    file_path = os.path.join("Video/", filename)
+
+
+    if os.path.isfile('Video/Output/video.mp4'):
+        os.remove('Video/Output/video.mp4')
+        return jsonify({'message': 'Video deleted successfully'})
+
+    frames_path = 'Frames'
+
+    for filename in os.listdir(frames_path):
+        file_path = os.path.join(frames_path, filename)
+
+        if os.path.isfile(file_path) and filename != '.gitkeep':
+            os.remove(file_path)
+
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+        return jsonify({'message': 'Video deleted successfully'})
+    else:
+        return jsonify({'message': 'Video not found'})
+    
+    
 
 def process_video():
     global frame_count
