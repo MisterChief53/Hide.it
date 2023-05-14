@@ -27,3 +27,10 @@ a censored version of your own video.
 3. Download the YOLOv3 weights from [here](https://pjreddie.com/media/files/yolov3.weights) and place them in the Backend folder of the project
 4. Run the server with `flask --app videoAnalysis.py run`
 5. Go to the url provided by flask and use the app
+
+## Team
+
+
+[Marco Antonio Lopez Arriaga ](https://github.com/marcoantonnlopez) | [Emmauel Florencio Trujillo](https://github.com/EmmanuelFlorencioT) | 
+[Fernando Antonio Ramirez Martinez](https://github.com/FernandoRmzMtz) | [Angel Yahir Loredo Lopez](https://github.com/MisterChief53) |
+[Rodrigo Jimenez Cordero](https://github.com/RodrigoJC20)
