@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import moviepy.editor as mp
 
 video = cv2.VideoCapture('Video/video.mp4')
 
@@ -101,8 +102,15 @@ for i in range(frame_count):
         #cv2.putText(frame,label,(x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0),2)
 
     video_out.write(frame)
-
-
-
+    
 
 video_out.release()
+
+video_no_audio = mp.VideoFileClip("Video/Output/video.mp4")
+video_with_audio = mp.VideoFileClip("Video/video.mp4")
+
+audio = video_with_audio.audio
+
+final_video = video_no_audio.set_audio(audio)
+
+final_video.write_videofile("Video/Output/final_video.mp4")
