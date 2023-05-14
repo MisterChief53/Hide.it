@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-from cleanup import clean
 
 video = cv2.VideoCapture('Video/video.mp4')
 
