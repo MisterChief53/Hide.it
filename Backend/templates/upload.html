@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- *BOOTSTRAP CSS INTERNO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_upload.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='imgs/logo.png')}}">
+
+    <title>hide.it.</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('landing')}}"><img class="logo" src="{{ url_for('static', filename='imgs/logo.png')}}" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav  menu_header">
+                        <a class="list_item_header" aria-current="page" href="."></a>
+                        <!-- <a class="list_item_header mainBtn" href=".">Try Hide it </a> -->
+                        <a class="list_item_header main_boton" aria-current="page" href="">Try hide.it.</a>
+
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        {% if videoNotUploaded %}
+            <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+                <section id="upload">
+                    <!-- <div> -->
+                    <img src="{{ url_for('static', filename='imgs/logo2.png')}}" alt="">
+                    <!-- <input type="file" accept="video/*" class="uploadBtn">Upload video -->
+                    <label for="archivo" class="uploadBtn">
+                        <input type="file" name="file" id="archivo" style="display: none;" accept="video/mp4" onclick="verificarArchivo()">
+                        <input type="submit" value="Upload" class="uploadBtn" id="uploadBtn" >
+                    </label>
+
+                    <label for="archivo" class="uploadBtn upBtn2">
+                        <span>Change video</span>
+                        <input type="file" id="archivo2" style="display: none;" accept="video/mp4">
+                    </label>
+        {% else %}
+                    <video width="320" height="240" src="{{ url_for('serve_video', filename='video.mp4') }}" controls id="videUploaded">
+                        Tu navegador no admite la etiqueta de video.
+                    </video>    
+        {% endif %}
+                </section>
+            </form>
+        
+
+
+
+
+        {% if classSelected %}
+            <section id="selectHide">
+                <h2>Select what you want to hide</h2>
+                <div id="options">
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+                    <button class="itemBtn" id="itOne" onclick="clicItem(id)">item</button>
+
+                </div>
+
+                <a href="#newVideo" class="main_boton">Hide it</a>
+            </section>
+        {% endif %}
+        
+
+
+
+        {% if classSelected %}
+            <section id="newVideo">
+                <h2>This is your new video</h2>
+                <video src="{{ url_for('serve_final_video', filename='final_video.mp4') }}" controls>
+                    Tu navegador no admite la etiqueta de video.
+                </video>
+                <a href="{{ url_for('serve_final_video', filename='final_video.mp4') }}" download class="uploadBtn">Descargar video</a>
+
+            </section>
+        {% endif %}
+        
+        
+
+    </main>
+
+
+
+
+
+
+
+    <footer>
+        <a href=".">
+            <img src="{{ url_for('static', filename='imgs/logo.png')}}" alt="">
+        </a>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <!-- *BOOTSTRAP JS INTERNO -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</body>
+
+</html>
